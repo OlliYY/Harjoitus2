@@ -1,12 +1,13 @@
 from flask import jsonify
 
-from models_mysql import User
+from repositories.repository_factory import users_repository_factory
 
 
 # Nyt jokaista controlleria vastaa yksi tiedosto. Tiedostot sisältävät kaikki funktiot,jotka pitävät
 # huolen requestin vastaanottamisesta ja responsen lähettämisestä.
 def get_all_users():
-    users =  User.get_all()
+    repo = users_repository_factory()
+    users = repo.get_all()
     users_json = []
     for user in users:
         users_json.append({
